@@ -11,84 +11,39 @@
 					"name": "Login as Admin",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [{"key": "Content-Type","value": "application/json"}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"options": {"raw": {"language": "json"}}
 						},
-						"url": {
-							"raw": "http://localhost:8080/auth/login",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["auth", "login"]
-						}
+						"url": {"raw": "http://localhost:8080/auth/login","protocol": "http","host": ["localhost"],"port": "8080","path": ["auth","login"]}
 					}
 				},
 				{
 					"name": "Login as Agent",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [{"key": "Content-Type","value": "application/json"}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"agent1\",\n    \"password\": \"agent123\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"options": {"raw": {"language": "json"}}
 						},
-						"url": {
-							"raw": "http://localhost:8080/auth/login",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["auth", "login"]
-						}
+						"url": {"raw": "http://localhost:8080/auth/login","protocol": "http","host": ["localhost"],"port": "8080","path": ["auth","login"]}
 					}
 				},
 				{
 					"name": "Login as Customer",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [{"key": "Content-Type","value": "application/json"}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"customer2\",\n    \"password\": \"customer123\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"options": {"raw": {"language": "json"}}
 						},
-						"url": {
-							"raw": "http://localhost:8080/auth/login",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["auth", "login"]
-						}
+						"url": {"raw": "http://localhost:8080/auth/login","protocol": "http","host": ["localhost"],"port": "8080","path": ["auth","login"]}
 					}
 				}
 			]
@@ -101,51 +56,34 @@
 					"request": {
 						"method": "POST",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
+							{"key": "Authorization","value": "Bearer {{token}}","type": "text"},
+							{"key": "Content-Type","value": "application/json"}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"newcustomer\",\n    \"password\": \"password123\",\n    \"email\": \"newcustomer@example.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"options": {"raw": {"language": "json"}}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/customers",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "customers"]
-						}
+						"url": {"raw": "http://localhost:8080/api/customers","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","customers"]}
 					}
 				},
 				{
 					"name": "Get My Customers (Agent only)",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
+						"header": [{"key": "Authorization","value": "Bearer {{token}}","type": "text"}],
+						"url": {"raw": "http://localhost:8080/api/customers","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","customers"]}
+					}
+				},
+				{
+					"name": "Get My Customers Paginated (Agent only)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization","value": "Bearer {{token}}","type": "text"}],
 						"url": {
-							"raw": "http://localhost:8080/api/customers",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "customers"]
+							"raw": "http://localhost:8080/api/customers/paged?page=0&size=10",
+							"protocol": "http","host": ["localhost"],"port": "8080","path": ["api","customers","paged"],
+							"query": [{"key": "page","value": "0"},{"key": "size","value": "10"}]
 						}
 					}
 				},
@@ -153,20 +91,8 @@
 					"name": "Get My Profile (Customer only)",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8080/api/customers/me",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "customers", "me"]
-						}
+						"header": [{"key": "Authorization","value": "Bearer {{token}}","type": "text"}],
+						"url": {"raw": "http://localhost:8080/api/customers/me","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","customers","me"]}
 					}
 				},
 				{
@@ -174,32 +100,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
+							{"key": "Authorization","value": "Bearer {{token}}","type": "text"},
+							{"key": "Content-Type","value": "application/json"}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"customer2\",\n    \"password\": \"newpassword123\",\n    \"email\": \"customer2updated@example.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"email\": \"customer2updated@example.com\",\n    \"password\": \"newpassword123\"\n}",
+							"options": {"raw": {"language": "json"}}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/customers/me",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "customers", "me"]
-						}
+						"url": {"raw": "http://localhost:8080/api/customers/me","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","customers","me"]}
 					}
 				},
 				{
@@ -207,32 +116,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
+							{"key": "Authorization","value": "Bearer {{token}}","type": "text"},
+							{"key": "Content-Type","value": "application/json"}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"agent1\",\n    \"password\": \"agent123\",\n    \"email\": \"agent1updated@example.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"email\": \"agent1updated@example.com\",\n    \"password\": \"agent123\"\n}",
+							"options": {"raw": {"language": "json"}}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/agents/me",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "agents", "me"]
-						}
+						"url": {"raw": "http://localhost:8080/api/agents/me","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","agents","me"]}
 					}
 				}
 			]
@@ -245,72 +137,79 @@
 					"request": {
 						"method": "POST",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
+							{"key": "Authorization","value": "Bearer {{token}}","type": "text"},
+							{"key": "Content-Type","value": "application/json"}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"title\": \"Login issue\",\n    \"description\": \"I cannot login to my account\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"options": {"raw": {"language": "json"}}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/tickets",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "tickets"]
-						}
+						"url": {"raw": "http://localhost:8080/api/tickets","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","tickets"]}
 					}
 				},
 				{
 					"name": "Get My Tickets (Customer only)",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
+						"header": [{"key": "Authorization","value": "Bearer {{token}}","type": "text"}],
+						"url": {"raw": "http://localhost:8080/api/tickets","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","tickets"]}
+					}
+				},
+				{
+					"name": "Get My Tickets Paginated (Customer only)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization","value": "Bearer {{token}}","type": "text"}],
 						"url": {
-							"raw": "http://localhost:8080/api/tickets",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "tickets"]
+							"raw": "http://localhost:8080/api/tickets/paged?page=0&size=10",
+							"protocol": "http","host": ["localhost"],"port": "8080","path": ["api","tickets","paged"],
+							"query": [{"key": "page","value": "0"},{"key": "size","value": "10"}]
 						}
+					}
+				},
+				{
+					"name": "Get Ticket By ID (Customer only)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization","value": "Bearer {{token}}","type": "text"}],
+						"url": {"raw": "http://localhost:8080/api/tickets/1","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","tickets","1"]}
 					}
 				},
 				{
 					"name": "Get Agent Tickets (Agent only)",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
+						"header": [{"key": "Authorization","value": "Bearer {{token}}","type": "text"}],
+						"url": {"raw": "http://localhost:8080/api/tickets/agent","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","tickets","agent"]}
+					}
+				},
+				{
+					"name": "Get Agent Tickets Paginated (Agent only)",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization","value": "Bearer {{token}}","type": "text"}],
 						"url": {
-							"raw": "http://localhost:8080/api/tickets/agent",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "tickets", "agent"]
+							"raw": "http://localhost:8080/api/tickets/agent/paged?page=0&size=10",
+							"protocol": "http","host": ["localhost"],"port": "8080","path": ["api","tickets","agent","paged"],
+							"query": [{"key": "page","value": "0"},{"key": "size","value": "10"}]
 						}
+					}
+				},
+				{
+					"name": "Update Ticket Status (Agent only)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{"key": "Authorization","value": "Bearer {{token}}","type": "text"},
+							{"key": "Content-Type","value": "application/json"}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"IN_PROGRESS\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": {"raw": "http://localhost:8080/api/tickets/1/status","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","tickets","1","status"]}
 					}
 				}
 			]
@@ -322,56 +221,26 @@
 					"name": "Login - Wrong Password (401)",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [{"key": "Content-Type","value": "application/json"}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"agent1\",\n    \"password\": \"wrongpassword\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"options": {"raw": {"language": "json"}}
 						},
-						"url": {
-							"raw": "http://localhost:8080/auth/login",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["auth", "login"]
-						}
+						"url": {"raw": "http://localhost:8080/auth/login","protocol": "http","host": ["localhost"],"port": "8080","path": ["auth","login"]}
 					}
 				},
 				{
 					"name": "Login - Empty Fields (400)",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"header": [{"key": "Content-Type","value": "application/json"}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"\",\n    \"password\": \"\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"options": {"raw": {"language": "json"}}
 						},
-						"url": {
-							"raw": "http://localhost:8080/auth/login",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["auth", "login"]
-						}
+						"url": {"raw": "http://localhost:8080/auth/login","protocol": "http","host": ["localhost"],"port": "8080","path": ["auth","login"]}
 					}
 				},
 				{
@@ -379,52 +248,23 @@
 					"request": {
 						"method": "POST",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
+							{"key": "Authorization","value": "Bearer {{token}}","type": "text"},
+							{"key": "Content-Type","value": "application/json"}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\": \"customer2\",\n    \"password\": \"test123\",\n    \"email\": \"test@example.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"options": {"raw": {"language": "json"}}
 						},
-						"url": {
-							"raw": "http://localhost:8080/api/customers",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "customers"]
-						}
+						"url": {"raw": "http://localhost:8080/api/customers","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","customers"]}
 					}
 				},
 				{
 					"name": "Agent Access Customer Endpoint (403)",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8080/api/customers/me",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "customers", "me"]
-						}
+						"header": [{"key": "Authorization","value": "Bearer {{token}}","type": "text"}],
+						"url": {"raw": "http://localhost:8080/api/customers/me","protocol": "http","host": ["localhost"],"port": "8080","path": ["api","customers","me"]}
 					}
 				}
 			]
