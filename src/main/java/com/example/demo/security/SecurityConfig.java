@@ -30,17 +30,17 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints
                 .requestMatchers("/auth/**").permitAll()
-                // Agent only
-                .requestMatchers(HttpMethod.POST, "/api/customers").hasRole("AGENT")
-                .requestMatchers(HttpMethod.GET, "/api/customers").hasRole("AGENT")
-                .requestMatchers(HttpMethod.PUT, "/api/agents/me").hasRole("AGENT")
-                .requestMatchers(HttpMethod.GET, "/api/tickets/agent").hasRole("AGENT")
-                // Customer only
-                .requestMatchers(HttpMethod.GET, "/api/customers/me").hasRole("CUSTOMER")
-                .requestMatchers(HttpMethod.PUT, "/api/customers/me").hasRole("CUSTOMER")
-                .requestMatchers(HttpMethod.POST, "/api/tickets").hasRole("CUSTOMER")
-                .requestMatchers(HttpMethod.GET, "/api/tickets").hasRole("CUSTOMER")
-                // Admin can do anything
+                // Agent endpoints
+                .requestMatchers(HttpMethod.POST, "/api/customers").hasAnyRole("AGENT", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/customers").hasAnyRole("AGENT", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/agents/me").hasAnyRole("AGENT", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/tickets/agent").hasAnyRole("AGENT", "ADMIN")
+                // Customer endpoints
+                .requestMatchers(HttpMethod.GET, "/api/customers/me").hasAnyRole("CUSTOMER", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/customers/me").hasAnyRole("CUSTOMER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/tickets").hasAnyRole("CUSTOMER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/tickets").hasAnyRole("CUSTOMER", "ADMIN")
+                // Everything else requires authentication
                 .anyRequest().hasRole("ADMIN")
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
