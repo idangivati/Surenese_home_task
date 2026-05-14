@@ -5,11 +5,12 @@ import com.example.demo.exception.ApiException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -19,16 +20,20 @@ public class AuthService {
     private final JwtService jwtService;
 
     public String login(LoginRequest request) {
-        // 1. Find user by username
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new ApiException("Invalid credentials", HttpStatus.UNAUTHORIZED));
+        log.info("Login attempt for username: {}", request.getUsername());
 
-        // 2. Check password
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> {
+                    log.warn("Login failed - user not found: {}", request.getUsername());
+                    return new ApiException("Invalid credentials", HttpStatus.UNAUTHORIZED);
+                });
+
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            log.warn("Login failed - wrong password for user: {}", request.getUsername());
             throw new ApiException("Invalid credentials", HttpStatus.UNAUTHORIZED);
         }
 
-        // 3. Generate and return JWT token
+        log.info("Login successful for user: {} with role: {}", user.getUsername(), user.getRole());
         return jwtService.generateToken(user);
     }
 }

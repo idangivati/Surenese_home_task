@@ -25,22 +25,27 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> 
+            .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints
                 .requestMatchers("/auth/**").permitAll()
-                // Agent endpoints
+                // Agent only
                 .requestMatchers(HttpMethod.POST, "/api/customers").hasAnyRole("AGENT", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/customers").hasAnyRole("AGENT", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/customers/paged").hasAnyRole("AGENT", "ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/agents/me").hasAnyRole("AGENT", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/tickets/agent").hasAnyRole("AGENT", "ADMIN")
-                // Customer endpoints
+                .requestMatchers(HttpMethod.GET, "/api/tickets/agent/paged").hasAnyRole("AGENT", "ADMIN")
+                .requestMatchers(HttpMethod.PATCH, "/api/tickets/*/status").hasAnyRole("AGENT", "ADMIN")
+                // Customer only
                 .requestMatchers(HttpMethod.GET, "/api/customers/me").hasAnyRole("CUSTOMER", "ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/customers/me").hasAnyRole("CUSTOMER", "ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/tickets").hasAnyRole("CUSTOMER", "ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/tickets").hasAnyRole("CUSTOMER", "ADMIN")
-                // Everything else requires authentication
+                .requestMatchers(HttpMethod.GET, "/api/tickets/paged").hasAnyRole("CUSTOMER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/tickets/*").hasAnyRole("CUSTOMER", "ADMIN")
+                // Everything else admin only
                 .anyRequest().hasRole("ADMIN")
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
