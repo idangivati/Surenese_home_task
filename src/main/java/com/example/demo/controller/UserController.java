@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,27 +24,31 @@ public class UserController {
     @PostMapping("/customers")
     public ResponseEntity<UserResponse> createCustomer(
             @Valid @RequestBody RegisterRequest request,
-            @AuthenticationPrincipal User currentUser) {
+            @AuthenticationPrincipal UserDetails userDetails) {
+        User currentUser = userService.getByUsername(userDetails.getUsername());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.createCustomer(request, currentUser));
     }
 
     @GetMapping("/customers")
     public ResponseEntity<List<UserResponse>> getMyCustomers(
-            @AuthenticationPrincipal User currentUser) {
+            @AuthenticationPrincipal UserDetails userDetails) {
+        User currentUser = userService.getByUsername(userDetails.getUsername());
         return ResponseEntity.ok(userService.getMyCustomers(currentUser));
     }
 
     @PutMapping("/agents/me")
     public ResponseEntity<UserResponse> updateAgentProfile(
             @Valid @RequestBody RegisterRequest request,
-            @AuthenticationPrincipal User currentUser) {
+            @AuthenticationPrincipal UserDetails userDetails) {
+        User currentUser = userService.getByUsername(userDetails.getUsername());
         return ResponseEntity.ok(userService.updateProfile(currentUser, request));
     }
 
     @GetMapping("/customers/me")
     public ResponseEntity<UserResponse> getMyProfile(
-            @AuthenticationPrincipal User currentUser) {
+            @AuthenticationPrincipal UserDetails userDetails) {
+        User currentUser = userService.getByUsername(userDetails.getUsername());
         return ResponseEntity.ok(new UserResponse(
                 currentUser.getId(),
                 currentUser.getUsername(),
@@ -55,7 +60,8 @@ public class UserController {
     @PutMapping("/customers/me")
     public ResponseEntity<UserResponse> updateMyProfile(
             @Valid @RequestBody RegisterRequest request,
-            @AuthenticationPrincipal User currentUser) {
+            @AuthenticationPrincipal UserDetails userDetails) {
+        User currentUser = userService.getByUsername(userDetails.getUsername());
         return ResponseEntity.ok(userService.updateProfile(currentUser, request));
     }
 }
